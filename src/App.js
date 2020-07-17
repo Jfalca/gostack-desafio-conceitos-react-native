@@ -25,16 +25,18 @@ export default function App() {
   async function handleLikeRepository(id) {
 
     api.post(`/repositories/${id}/like`).then(response => {
-           
-      let newRepositories = [];
-      repositories.map(repository => {
+      
+      const updatedRepositories = repositories.map(repository => {
+
         if(repository.id === id){
-          newRepositories.push(response.data)
-        }else{
-          newRepositories.push(repository)
-        }        
-      })      
-      setRepositories(newRepositories)     
+          return response.data;
+        }
+
+        return repository;
+
+      })
+      
+      setRepositories(updatedRepositories) 
     
     });    
   }
